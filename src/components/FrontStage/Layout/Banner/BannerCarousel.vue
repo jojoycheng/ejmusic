@@ -40,20 +40,20 @@
 .carousel-item {
   height: 60vh;
   @media screen and (min-width: 576px) {
-    height: 70vh;
+    height: 50vh;
   }
   &:nth-of-type(1) {
-    background: linear-gradient(90deg, rgb(1, 48, 72) 0%, transparent 60%),
+    background: linear-gradient(90deg, rgba(1, 48, 72, 0.5) 0%, rgba(1, 48, 72, 0.5) 90%),
     url('@/assets/img/banner01.jpg') center center/100% auto no-repeat;
     background-size: cover;
   }
   &:nth-of-type(2) {
-    background: linear-gradient(90deg, rgb(72, 41, 1) 0%, transparent 60%),
+    background: linear-gradient(90deg, rgba(72, 41, 1, 0.5) 0%, rgba(72, 41, 1, 0.5) 90%),
     url('@/assets/img/banner02.jpg') center center/100% auto no-repeat;
     background-size: cover;
   }
   &:nth-of-type(3) {
-    background: linear-gradient(90deg, rgba(104, 99, 1, 0.774) 0%, transparent 60%),
+    background: linear-gradient(90deg, rgba(104, 99, 1, 0.6) 0%, rgba(104, 99, 1, 0.6) 90%),
     url('@/assets/img/banner03.jpg') center center/100% auto no-repeat;
     background-size: cover;
   }

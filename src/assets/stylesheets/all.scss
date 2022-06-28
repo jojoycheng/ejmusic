@@ -1,7 +1,7 @@
 
 @import "~bootstrap/scss/functions";
 
-// 修改變數
+// modify variables
 $primary: #3948b4;
 $secondary: #e4e4e4;
 $info: #c18205;
@@ -12,6 +12,16 @@ $dropdown-bg: rgba(255, 255, 255, 0.744);
 $modal-content-bg: #f8f9fa;
 
 @import "./helpers/variables";
+
+// modify maps
+$font-sizes: map-merge(
+  $font-sizes,
+  (
+    7: $font-size-base * 0.8,
+    8: $font-size-base * 0.7,
+  )
+);
+
 @import "~bootstrap/scss/mixins";
 @import "~bootstrap/scss/utilities";
 
@@ -30,12 +40,14 @@ $utilities: map-merge(
           map-get(map-get($utilities, "width"), "values"),
           (
             "2px": 2px,
+            "28px": 28px,
             "36px": 36px,
             "45px": 45px,
             "60px": 60px,
             "90px": 90px,
             "135px": 135px,
             "150px": 150px,
+            "250px": 250px,
             "394px": 394px,
           )
         ),
@@ -48,6 +60,7 @@ $utilities: map-merge(
         values: map-merge(
           map-get(map-get($utilities, "height"), "values"),
           (
+            "28px": 28px,
             "36px": 36px,
             "45px": 45px,
             "60px": 60px,
@@ -55,7 +68,7 @@ $utilities: map-merge(
             "135px": 135px,
             "150px": 150px,
             "394px": 394px,
-            "70": 70%,
+            "60": 60%,
           )
         ),
       ),
@@ -94,6 +107,22 @@ $utilities: map-merge(
             "6px": 6px,
             "12px": 12px,
             "20px": 20px,
+          )
+        ),
+      ),
+    ),
+    "background-color": map-merge(
+      map-get($utilities, "background-color"),
+      (
+        responsive: true,
+        values: map-merge(
+          map-get(map-get($utilities, "background-color"), "values"),
+          (
+            "primary-light": #95A6FA, 
+            "green": #096060,
+            "green-light": #169292,
+            "red": #6F0303,
+            "red-light": #D23E1D,
           )
         ),
       ),

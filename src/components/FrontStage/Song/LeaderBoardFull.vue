@@ -1,8 +1,8 @@
 <template>
-  <h2>即時排行榜</h2>
+  <h2>{{ boardTitle }}</h2>
   <div class="mt-3 mt-md-5">
     <ul class="m-0 p-0">
-      <li style="list-style: none" v-for="num in 10" :key="num">
+      <li style="list-style: none" v-for="num in 20" :key="num">
         <div class="d-flex align-items-center justify-content-between py-3">
           <div class="d-flex align-items-center">
             <div
@@ -70,10 +70,10 @@ ul li {
   &:nth-of-type(3) .numberlist {
     background-color: rgba(226, 140, 2, 0.861);
   }
-  &:nth-of-type(6), &:nth-of-type(7), &:nth-of-type(8), &:nth-of-type(9), &:nth-of-type(10) {
-    @media screen and (max-width: 576px) {
-      display: none;
-    }
+}
+
+@for $i from 6 through 20 {
+  ul li:nth-of-type(#{$i}) {
     @media screen and (min-width: 768px) {
       img {
       max-width: 70px;
@@ -81,15 +81,13 @@ ul li {
       }
     }
   }
-  &:hover {
-    background-color: #95a6fa29;
-  }
 }
 </style>
 
 <script>
 export default {
-  name: 'LeaderBoard',
+  name: 'LeaderBoardFull',
+  props: ['boardTitle'],
   data () {
     return {
     }

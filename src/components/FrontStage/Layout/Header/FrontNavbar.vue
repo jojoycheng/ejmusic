@@ -1,8 +1,8 @@
 <template>
-  <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top">
-    <div class="container-fluid d-flex align-items-center px-3">
+  <nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
+    <div class="container d-flex align-items-center px-0">
       <button
-        class="navbar-toggler border-0 p-2 mt-1"
+        class="navbar-toggler border-0 mt-1 px-2"
         type="button"
         data-bs-toggle="collapse"
         data-bs-target="#navbarSupportedContent"
@@ -33,7 +33,6 @@
           mx-0
           p-2
         "
-        href="#"
         to="/"
       >
         <svg
@@ -67,8 +66,8 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav">
           <li class="nav-item text-center px-2">
-            <a class="nav-link active fs-6" aria-current="page" href="#"
-              >歌曲排行榜</a
+            <router-link class="nav-link active fs-6" aria-current="page" to="/songBoard"
+              >歌曲排行榜</router-link
             >
           </li>
           <li class="nav-item dropdown text-center px-2">
@@ -99,10 +98,10 @@
           </li>
         </ul>
       </div>
-      <a class="nav-link d-none d-md-inline-block p-2" href="#">
+      <a class="nav-link d-none d-md-inline-block p-0" href="#">
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="22"
+          width="32"
           height="22"
           fill="#3948b4"
           class="bi bi-cart-fill"
