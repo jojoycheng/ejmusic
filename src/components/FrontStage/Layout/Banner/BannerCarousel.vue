@@ -39,9 +39,6 @@
 <style lang="scss">
 .carousel-item {
   height: 60vh;
-  @media screen and (min-width: 576px) {
-    height: 50vh;
-  }
   &:nth-of-type(1) {
     background: linear-gradient(90deg, rgba(1, 48, 72, 0.5) 0%, rgba(1, 48, 72, 0.5) 90%),
     url('@/assets/img/banner01.jpg') center center/100% auto no-repeat;

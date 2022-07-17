@@ -8,11 +8,11 @@
           <ul class="px-0 pt-1">
             <li
               :class="{active:isActive === item.title}"
-              class="mb-4 category"
+              class="mb-4 category liStyle"
               style="list-style: none"
               v-for="item in boardList"
               :key="item.title"
-              @click="changeStyle(item.title)"
+              @click="changeChart(item.title, item.playlistID)"
             >
               <router-link to="/songBoard" class="fs-5 text-dark text-decoration-none">
                 {{ item.title }}
@@ -22,7 +22,7 @@
         </div>
       </div>
       <div class="col-12 col-md-8 mt-5 mb-5">
-        <leader-board-full :board-title="isActive"/>
+        <leader-board-full :board-title="isActive" :board-data="chartData"/>
       </div>
     </div>
   </section>
@@ -32,7 +32,7 @@
 .banner {
   background: url("@/assets/img/banner04.jpg") center center/100% auto no-repeat;
   background-size: cover;
-  height: 50vh;
+  height: 60vh;
 }
 
 .category:hover, .category.active {
@@ -40,6 +40,10 @@
   border-left: #6573df 3px solid;
   padding-left: 8px;
   transition: all 0.2s;
+}
+
+.liStyle:hover {
+    background-color: #95a6fa29;
 }
 
 </style>
@@ -54,33 +58,54 @@ export default {
   },
   data () {
     return {
+      chartData: [],
       isActive: '綜合新歌即時榜',
       boardList: [
         {
-          title: '綜合新歌即時榜'
+          title: '綜合新歌即時榜',
+          playlistID: 'LZPhK2EyYzN15dU-PT'
         },
         {
-          title: '華語單曲排行榜'
+          title: '華語單曲排行榜',
+          playlistID: 'H-bKpKtcP2hFFflUeh'
         },
         {
-          title: '台語單曲排行榜'
+          title: '台語單曲排行榜',
+          playlistID: '9_sZfxEJmE4IFt2ETX'
         },
         {
-          title: '西洋單曲排行榜'
+          title: '西洋單曲排行榜',
+          playlistID: 'SqKba6FG219sIuWjcp'
         },
         {
-          title: '日語單曲排行榜'
+          title: '日語單曲排行榜',
+          playlistID: 'OmgrDOSpy7BGdwm1fm'
         },
         {
-          title: '韓語單曲排行榜'
+          title: '韓語單曲排行榜',
+          playlistID: 'PZJIscJ-MWFJoBASGl'
         }
       ]
     }
   },
   methods: {
-    changeStyle (title) {
-      this.isActive = this.isActive === title ? title : title
+    changeChart (title, playlistID) {
+      const config = {
+        headers: {
+          Authorization: 'Bearer PApI0Sz3hGuFZo-6XF-ViQ=='
+        }
+      }
+      this.$http.get(`https://api.kkbox.com/v1.1/charts/${playlistID}/tracks?territory=TW&limit=20`, config)
+        .then(res => {
+          console.log(res.data.data)
+          this.chartData = res.data.data
+          this.isActive = this.isActive === title ? title : title
+        })
     }
+  },
+  mounted () {
+    this.changeChart(this.isActive, this.boardList[0].playlistID)
   }
+
 }
 </script>

@@ -1,8 +1,8 @@
 <template>
-  <h2>即時排行榜</h2>
+  <h2>綜合新歌即時榜</h2>
   <div class="mt-3 mt-md-5">
     <ul class="m-0 p-0">
-      <li style="list-style: none" v-for="num in 10" :key="num">
+      <li class="homeBoardStyle px-2" style="list-style: none" v-for="(chart, id) in chartData" :key="chart.id">
         <div class="d-flex align-items-center justify-content-between py-3">
           <div class="d-flex align-items-center">
             <div
@@ -20,17 +20,17 @@
                 numberlist
               "
             >
-              <h4 class="m-0 fs-5">{{ num }}</h4>
+              <h4 class="m-0 fs-5">{{ id + 1 }}</h4>
             </div>
             <a href="#">
               <img
                 class="w-60px h-60px w-md-90px h-md-90px me-3 me-sm-4 rounded-12px"
-                src="https://picsum.photos/100/100/?random=10"
+                :src="chart.album.images[0].url"
               />
             </a>
             <div>
-              <h4 class="fs-7 fs-md-5">歌曲名稱</h4>
-              <h5 class="fs-8 fs-md-6">歌手名稱</h5>
+              <p class="fs-8 fs-md-5">{{ chart.name }}</p>
+              <p class="fs-8 fs-md-6 text-black-50">{{ chart.album.artist.name}}</p>
             </div>
           </div>
           <a href="#">
@@ -60,7 +60,8 @@
 </template>
 
 <style lang="scss">
-ul li {
+.homeBoardStyle {
+  border-radius: 12px;
   &:nth-of-type(1) .numberlist {
     background-color: rgb(255, 217, 0);
   }
@@ -81,10 +82,10 @@ ul li {
       }
     }
   }
-  &:hover {
+}
+.homeBoardStyle:hover {
     background-color: #95a6fa29;
   }
-}
 </style>
 
 <script>
@@ -92,7 +93,26 @@ export default {
   name: 'LeaderBoard',
   data () {
     return {
+      chartData: []
     }
+  },
+  props: ['token'],
+  methods: {
+    getChart (playlistID) {
+      const config = {
+        headers: {
+          Authorization: 'Bearer PApI0Sz3hGuFZo-6XF-ViQ=='
+        }
+      }
+      this.$http.get(`https://api.kkbox.com/v1.1/charts/${playlistID}/tracks?territory=TW&limit=10`, config)
+        .then(res => {
+          console.log(res.data.data)
+          this.chartData = res.data.data
+        })
+    }
+  },
+  mounted () {
+    this.getChart('LZPhK2EyYzN15dU-PT')
   }
 }
 </script>

@@ -86,6 +86,9 @@
               aria-labelledby="navbarDropdown"
             >
               <li class="text-center">
+                <a class="dropdown-item fs-6" href="#">全部專輯</a>
+              </li>
+              <li class="text-center">
                 <a class="dropdown-item fs-6" href="#">懷舊偶像劇</a>
               </li>
               <li class="text-center">
@@ -98,7 +101,7 @@
           </li>
         </ul>
       </div>
-      <a class="nav-link d-none d-md-inline-block p-0" href="#">
+      <a class="nav-link d-none d-md-inline-block pe-md-1" href="#">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="32"

@@ -1,8 +1,8 @@
 <template>
   <h2>{{ boardTitle }}</h2>
   <div class="mt-3 mt-md-5">
-    <ul class="m-0 p-0">
-      <li style="list-style: none" v-for="num in 20" :key="num">
+    <ul class="mx-0 mb-5 p-0">
+      <li class="leaderBoardStyle px-2" style="list-style: none" v-for="(chart, id) in boardData" :key="chart.id">
         <div class="d-flex align-items-center justify-content-between py-3">
           <div class="d-flex align-items-center">
             <div
@@ -20,17 +20,17 @@
                 numberlist
               "
             >
-              <h4 class="m-0 fs-5">{{ num }}</h4>
+              <h4 class="m-0 fs-5">{{ id + 1 }}</h4>
             </div>
             <a href="#">
               <img
                 class="w-60px h-60px w-md-90px h-md-90px me-3 me-sm-4 rounded-12px"
-                src="https://picsum.photos/100/100/?random=10"
+                :src="chart.album.images[0].url"
               />
             </a>
             <div>
-              <h4 class="fs-7 fs-md-5">歌曲名稱</h4>
-              <h5 class="fs-8 fs-md-6">歌手名稱</h5>
+              <p class="fs-8 fs-md-5">{{ chart.name }}</p>
+              <p class="fs-8 fs-md-6">{{ chart.album.artist.name}}</p>
             </div>
           </div>
           <a href="#">
@@ -51,16 +51,12 @@
         <hr class="m-0" />
       </li>
     </ul>
-    <div class="text-center mt-5">
-      <button class="btn btn-secondary w-50 rounded-12px text-primary" type="button">
-        聆聽更多
-      </button>
-    </div>
   </div>
 </template>
 
 <style lang="scss">
-ul li {
+.leaderBoardStyle {
+  border-radius: 12px;
   &:nth-of-type(1) .numberlist {
     background-color: rgb(255, 217, 0);
   }
@@ -70,6 +66,10 @@ ul li {
   &:nth-of-type(3) .numberlist {
     background-color: rgba(226, 140, 2, 0.861);
   }
+}
+
+.leaderBoardStyle:hover {
+    background-color: #95a6fa29;
 }
 
 @for $i from 6 through 20 {
@@ -87,7 +87,7 @@ ul li {
 <script>
 export default {
   name: 'LeaderBoardFull',
-  props: ['boardTitle'],
+  props: ['boardTitle', 'boardData'],
   data () {
     return {
     }

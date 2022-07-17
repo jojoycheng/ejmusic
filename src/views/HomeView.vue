@@ -6,7 +6,7 @@
         <dayof-song/>
       </div>
       <div class="col-12 col-md-8 mt-5 mb-5">
-        <leader-board />
+        <leader-board :token="token"/>
       </div>
     </div>
   </section>
@@ -28,6 +28,10 @@
       </div>
     </div>
   </section>
+  <!-- <iframe :src="`https://widget.kkbox.com/v1/?id=${kkboxData[1].album.id}&type=album&terr=SG&lang=en&autoplay=true`" allow="autoplay" height="600px" frameborder="0"></iframe> -->
+  <!-- <iframe id="player" type="text/html" width="640" height="390"
+  src="http://www.youtube.com/embed/S3nTbkmKfhk"
+  frameborder="0"></iframe> -->
 </template>
 
 <style lang="scss">
@@ -41,6 +45,47 @@ import FeaturedAlbum from '@/components/FrontStage/Song/FeaturedAlbum.vue'
 import SongList from '@/components/FrontStage/Song/SongList.vue'
 export default {
   name: 'HomeView',
+  data () {
+    return {
+      token: '',
+      kkboxData: ''
+    }
+  },
+  methods: {
+    getToken () {
+      const config = {
+        headers: {
+          Accept: 'application/x-www-form-urlencoded',
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      }
+      const oauth = new URLSearchParams({
+        grant_type: 'client_credentials',
+        client_id: 'de641867b448bcef8c6e1b2760a29030',
+        client_secret: 'ed9ddf2417ebaa6c062e0026ef44063c'
+      })
+      this.$http.post('https://cors-ejmusic.herokuapp.com/https://account.kkbox.com/oauth2/token', oauth.toString(), config)
+        .then(res => {
+          this.token = res.data.access_token
+          // this.getSearch()
+        })
+    },
+    getSearch () {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${this.token}`
+        }
+      }
+      this.$http.get('https://api.kkbox.com/v1.1/search?q=茄子蛋&type=artist,track&territory=TW', config)
+        .then(res => {
+          console.log(res)
+          this.kkboxData = res.data.tracks.data
+        })
+    }
+  },
+  created () {
+    // this.getToken()
+  },
   components: {
     BannerCarousel,
     DayofSong,
