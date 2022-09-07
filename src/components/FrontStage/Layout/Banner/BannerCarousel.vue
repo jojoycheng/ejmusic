@@ -55,7 +55,6 @@
     background-size: cover;
   }
 }
-
 </style>
 
 <script>

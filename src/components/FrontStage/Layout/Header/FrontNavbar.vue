@@ -49,19 +49,23 @@
         </svg>
         EJMusic</router-link
       >
-      <a class="nav-link d-inline-block d-md-none p-2" href="#">
+      <a href="#" class="btn d-inline-block d-md-none p-0 mx-4 position-relative">
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="22"
+          width="32"
           height="22"
           fill="#3948b4"
-          class="bi bi-cart-fill"
+          class="bi bi-cart-fill position-relative"
           viewBox="0 0 16 16"
         >
           <path
             d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"
           />
         </svg>
+        <span class="position-absolute top-0 start-100 translate-middle px-2 bg-danger border border-light rounded-circle text-light fs-7">
+          {{ cartNum }}
+          <span class="visually-hidden">unread messages</span>
+        </span>
       </a>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav">
@@ -73,7 +77,6 @@
           <li class="nav-item dropdown text-center px-2">
             <a
               class="nav-link active dropdown-toggle fs-6"
-              href="#"
               id="navbarDropdown"
               role="button"
               data-bs-toggle="dropdown"
@@ -86,34 +89,38 @@
               aria-labelledby="navbarDropdown"
             >
               <li class="text-center">
-                <a class="dropdown-item fs-6" href="#">全部專輯</a>
+                <router-link class="dropdown-item fs-6" to="/albumProduct/all">全部專輯</router-link>
               </li>
               <li class="text-center">
-                <a class="dropdown-item fs-6" href="#">懷舊偶像劇</a>
+                <router-link class="dropdown-item fs-6" to="/albumProduct/idolDrama">懷舊偶像劇</router-link>
               </li>
               <li class="text-center">
-                <a class="dropdown-item fs-6" href="#">電影主題曲</a>
+                <router-link class="dropdown-item fs-6" to="/albumProduct/themeMusic">電影主題曲</router-link>
               </li>
               <li class="text-center">
-                <a class="dropdown-item fs-6" href="#">特色 MV 歌曲</a>
+                <router-link class="dropdown-item fs-6" to="/albumProduct/featureMV">特色 MV 歌曲</router-link>
               </li>
             </ul>
           </li>
         </ul>
       </div>
-      <a class="nav-link d-none d-md-inline-block pe-md-1" href="#">
+      <a class="btn d-none d-md-inline-block p-0 me-md-2 position-relative" href="#">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="32"
           height="22"
           fill="#3948b4"
-          class="bi bi-cart-fill"
+          class="bi bi-cart-fill position-relative"
           viewBox="0 0 16 16"
         >
           <path
             d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"
           />
         </svg>
+        <span class="position-absolute top-0 start-100 translate-middle px-2 bg-danger border border-light rounded-circle text-light fs-7">
+          {{ cartNum }}
+          <span class="visually-hidden">unread messages</span>
+        </span>
       </a>
     </div>
   </nav>
@@ -128,7 +135,15 @@
 </style>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
-  name: 'FrontNavbar'
+  name: 'FrontNavbar',
+  computed: {
+    ...mapGetters(['cartNum'])
+  },
+  created () {
+    this.$store.dispatch('getCartData')
+  }
 }
 </script>

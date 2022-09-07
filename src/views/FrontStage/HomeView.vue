@@ -6,7 +6,7 @@
         <dayof-song/>
       </div>
       <div class="col-12 col-md-8 mt-5 mb-5">
-        <leader-board :token="token"/>
+        <leader-board />
       </div>
     </div>
   </section>
@@ -39,10 +39,10 @@
 
 <script>
 import BannerCarousel from '@/components/FrontStage/Layout/Banner/BannerCarousel.vue'
-import DayofSong from '@/components/FrontStage/Song/DayofSong.vue'
-import LeaderBoard from '@/components/FrontStage/Song/LeaderBoard.vue'
-import FeaturedAlbum from '@/components/FrontStage/Song/FeaturedAlbum.vue'
-import SongList from '@/components/FrontStage/Song/SongList.vue'
+import DayofSong from '@/components/FrontStage/HomePage/DayofSong.vue'
+import LeaderBoard from '@/components/FrontStage/HomePage/LeaderBoard.vue'
+import FeaturedAlbum from '@/components/FrontStage/HomePage/FeaturedAlbum.vue'
+import SongList from '@/components/FrontStage/HomePage/SongList.vue'
 export default {
   name: 'HomeView',
   data () {
@@ -52,24 +52,6 @@ export default {
     }
   },
   methods: {
-    getToken () {
-      const config = {
-        headers: {
-          Accept: 'application/x-www-form-urlencoded',
-          'Content-Type': 'application/x-www-form-urlencoded'
-        }
-      }
-      const oauth = new URLSearchParams({
-        grant_type: 'client_credentials',
-        client_id: 'de641867b448bcef8c6e1b2760a29030',
-        client_secret: 'ed9ddf2417ebaa6c062e0026ef44063c'
-      })
-      this.$http.post('https://cors-ejmusic.herokuapp.com/https://account.kkbox.com/oauth2/token', oauth.toString(), config)
-        .then(res => {
-          this.token = res.data.access_token
-          // this.getSearch()
-        })
-    },
     getSearch () {
       const config = {
         headers: {
@@ -84,7 +66,6 @@ export default {
     }
   },
   created () {
-    // this.getToken()
   },
   components: {
     BannerCarousel,

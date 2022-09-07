@@ -1,8 +1,8 @@
 <template>
-  <div class="banner"></div>
+  <div class="songBanner"></div>
   <section class="container px-5 px-md-1 my-4">
     <div class="row">
-      <div class="col-12 col-md-4 mt-4 mt-md-5 pe-md-5">
+      <div class="col-12 col-md-5 col-lg-4 mt-4 mt-md-5 pe-md-5">
         <div class="p-4 border rounded-12px shadow-sm">
           <h3 class="mb-4">分類排行</h3>
           <ul class="px-0 pt-1">
@@ -21,15 +21,15 @@
           </ul>
         </div>
       </div>
-      <div class="col-12 col-md-8 mt-5 mb-5">
-        <leader-board-full :board-title="isActive" :board-data="chartData"/>
+      <div class="col-12 col-md-7 col-lg-8 mt-5 mb-5">
+        <leader-board-full :board-title="isActive" :board-data="chartNum(20)"/>
       </div>
     </div>
   </section>
 </template>
 
 <style lang="scss">
-.banner {
+.songBanner {
   background: url("@/assets/img/banner04.jpg") center center/100% auto no-repeat;
   background-size: cover;
   height: 60vh;
@@ -43,13 +43,14 @@
 }
 
 .liStyle:hover {
-    background-color: #95a6fa29;
+  background-color: #95a6fa29;
 }
 
 </style>
 
 <script>
-import LeaderBoardFull from '@/components/FrontStage/Song/LeaderBoardFull.vue'
+import LeaderBoardFull from '@/components/FrontStage/SongBoard/LeaderBoardFull.vue'
+import { mapState, mapGetters } from 'vuex'
 
 export default {
   name: 'SongBoard',
@@ -58,7 +59,6 @@ export default {
   },
   data () {
     return {
-      chartData: [],
       isActive: '綜合新歌即時榜',
       boardList: [
         {
@@ -88,19 +88,21 @@ export default {
       ]
     }
   },
+  computed: {
+    ...mapState({
+      token: 'token',
+      tokenType: 'tokenType'
+    }),
+    ...mapGetters(['chartNum'])
+  },
   methods: {
     changeChart (title, playlistID) {
-      const config = {
-        headers: {
-          Authorization: 'Bearer PApI0Sz3hGuFZo-6XF-ViQ=='
-        }
+      if (this.$store.state.token) {
+        this.$store.dispatch('getChart', playlistID)
+      } else {
+        this.$store.dispatch('getToken', playlistID)
       }
-      this.$http.get(`https://api.kkbox.com/v1.1/charts/${playlistID}/tracks?territory=TW&limit=20`, config)
-        .then(res => {
-          console.log(res.data.data)
-          this.chartData = res.data.data
-          this.isActive = this.isActive === title ? title : title
-        })
+      this.isActive = this.isActive === title ? title : title
     }
   },
   mounted () {

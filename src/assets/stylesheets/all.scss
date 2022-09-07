@@ -5,6 +5,7 @@
 $primary: #3948b4;
 $secondary: #e4e4e4;
 $info: #c18205;
+$success: #0566c1;
 // $navbar-toggler-padding-y: 0;
 // $navbar-toggler-padding-x: 0.75rem;
 $navbar-toggler-focus-width: 0;
@@ -19,6 +20,13 @@ $font-sizes: map-merge(
   (
     7: $font-size-base * 0.8,
     8: $font-size-base * 0.7,
+  )
+);
+$spacers: map-merge(
+  $spacers,
+  (
+    6: $spacer * 4.5,
+    7: $spacer * 6,
   )
 );
 
@@ -60,6 +68,7 @@ $utilities: map-merge(
         values: map-merge(
           map-get(map-get($utilities, "height"), "values"),
           (
+            "2px": 2px,
             "28px": 28px,
             "36px": 36px,
             "45px": 45px,

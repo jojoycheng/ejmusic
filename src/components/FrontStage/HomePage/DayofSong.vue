@@ -1,6 +1,6 @@
 <template>
   <div class="p-4 border rounded-12px shadow-sm">
-    <h2 class="text-center mb-3">每日推薦</h2>
+    <h2 class="text-center mb-3 mb-md-4">每日推薦</h2>
     <a href="#">
       <img
         class="w-100 rounded-6px mb-3"
